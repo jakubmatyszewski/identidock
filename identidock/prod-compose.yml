@@ -1,3 +1,4 @@
+---
 proxy:
         image: proxy:1.0
         links:
@@ -5,7 +6,7 @@ proxy:
         ports:
                 - "80:80"
         environment:
-                - NGINX_HOST=192.168.99.101
+                - NGINX_HOST=192.168.0.100
                 - NGINX_PROXY=http://identidock:9090
 identidock:
         image: terzioo/identidock:latest

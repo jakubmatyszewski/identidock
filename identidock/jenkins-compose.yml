@@ -1,3 +1,6 @@
+---
+This is a docker-compose file run by Jenkins.
+---
 identidock:
         build: ../identidock/
         expose:
@@ -13,4 +16,3 @@ dnmonster:
 
 redis:
         image: redis:3.0
-

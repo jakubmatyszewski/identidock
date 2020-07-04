@@ -1,0 +1,8 @@
+[vagrant]
+192.168.0.100
+
+
+[vagrant:vars]
+ansible_ssh_user=vagrant
+ansible_ssh_private_key_file=/home/jakub/Desktop/using-docker/.vagrant/machines/default/virtualbox/private_key
+ansible_python_interpreter=/usr/bin/python3
