@@ -4,5 +4,5 @@
 
 [vagrant:vars]
 ansible_ssh_user=vagrant
-ansible_ssh_private_key_file=/home/jakub/Desktop/using-docker/.vagrant/machines/default/virtualbox/private_key
+ansible_ssh_private_key_file=$(pwd)/.vagrant/machines/default/virtualbox/private_key
 ansible_python_interpreter=/usr/bin/python3
