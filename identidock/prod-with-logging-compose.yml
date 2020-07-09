@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   proxy:
     image: amouat/proxy:1.0
@@ -37,9 +37,49 @@ services:
       ROUTE_URIS: logstash://logstash:5000
 
   logstash:
-    image: logstash:1.5
-    volumes:
-      - ./logstash.conf:/usr/share/logstash/config/logstash.conf
+    image: logstash:7.8.0
+    container_name: logstash
+    hostname: logstash
     environment:
       LOGSPOUT: ignore
+    ports:
+      - 9600:9600
+      - 8089:8089
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/config/logstash.conf
     command: -f /usr/share/logstash/config/logstash.conf
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch:7.8.0
+    container_name: elasticsearch
+    hostname: elasticsearch
+    environment:
+      discovery.type: single-node  
+      LOGSPOUT: ignore
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data 
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  kibana:
+    image: kibana:7.8.0
+    container_name: kibana
+    hostname: kibana
+    environment:
+      LOGSPOUT: ignore
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch:elasticsearch
+    depends_on:
+      - elasticsearch
+
+volumes:
+  elasticsearch_data:
+    driver: local
